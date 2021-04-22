@@ -17,9 +17,9 @@ module.exports = {
       {
         test: /\.(css|less)$/,
         use: [
-          "style-loader", // 顺序先
+          "style-loader",
           "css-loader",
-          "less-loader",
+          "less-loader", // 顺序先
         ]
       },
     ]

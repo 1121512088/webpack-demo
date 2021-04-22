@@ -1,35 +1,42 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { HotModuleReplacementPlugin } = require('webpack');
+
 
 module.exports = {
   entry: {
-    app: "./src/index.js",
+    index: {
+      import: "./src/index",
+      filename: 'static/js/[name].[contenthash].js',
+      dependOn: 'lodash',
+    },
+    sample: {
+      import: "./src/sample.jsx",
+      filename: 'static/js/[name].[contenthash].jsx',
+      dependOn: 'lodash',
+    },
+    lodash: 'lodash',
   },
   output: {
-    filename: '[name].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
     new HtmlWebpackPlugin({ // 生成html 到 dist下
       title: "测试"
     }),
-    new CleanWebpackPlugin({  // 打包前清空 dist
-      cleanStaleWebpackAssets: false // 在(npm run watch)webpack --watch 模式下 默认会将没有改变的html文件清除
-    }),
-    new HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
       {
         test: /\.(css|less)$/,
         use: [
-          "style-loader", // 顺序先
+          "style-loader",
           "css-loader",
-          "less-loader",
+          "less-loader", // 顺序先 
         ]
       },
     ]
   },
-}
+};
