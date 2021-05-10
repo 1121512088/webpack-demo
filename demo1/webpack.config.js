@@ -5,7 +5,9 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true, // webpack >= 5.20 才有用 清理 /dist 文件夹 
   },
+  mode: "production",
   module: {
     rules: [
       { // less
