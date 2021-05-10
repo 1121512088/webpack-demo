@@ -16,17 +16,28 @@ module.exports = {
           'less-loader',
         ],
       },
-      { // 图片
-        test: /\.(png|jpg|svg|gif)$/,
-        use: 'file-loader',
+      // 图片
+      // { 
+      //   test: /\.(png|jpg|svg|gif)$/,
+      //   use: 'file-loader',
+      // },
+      // 文字
+      // { 
+      //   test: /\.(woff|woff2|eot|ttf|otf)$/,
+      //   use: ['file-loader'],
+      // },
+
+      // webpack 5 :
+      // 图片
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
       },
-      { // 样式
-        test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: ['file-loader'],
-      }
+      // 文字
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+      },
     ]
   },
-  alias: {
-    "@": path.resolve(__dirname, 'src')
-  }
 }

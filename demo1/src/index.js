@@ -2,6 +2,8 @@ import _ from "Lodash";
 import "./style.less";
 import Icon from './use.png';
 
+// npm run build 后 看 dist/index.html 文件
+
 function component() {
   const element = document.createElement('div');
 
