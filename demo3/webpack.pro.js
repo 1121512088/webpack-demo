@@ -4,6 +4,11 @@ const config = require("./webpack.config");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
+// 生产环境目标 
+// 1. 压缩 bundle、
+// 2. 更轻量的 source map
+// 3. 资源优化等
+
 module.exports = merge(config, {
   output: {
     clean: true // webpack >= 5.20 才有用 清理 /dist 文件夹 

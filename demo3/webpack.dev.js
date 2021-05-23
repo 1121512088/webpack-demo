@@ -4,6 +4,11 @@ const { HotModuleReplacementPlugin } = require('webpack');
 // webpack ul 可视化包工具
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
+// 在开发环境中，我们需要：
+// 1. 强大的 source map 
+// 2. hot module replacement(热模块替换)
+// 3. localhost server
+
 module.exports = merge(config, {
   mode: "development",
   devtool: 'inline-source-map',
