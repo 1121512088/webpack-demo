@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -23,6 +24,7 @@ module.exports = {
     new HtmlWebpackPlugin({ // 生成html 到 dist下
       title: "测试"
     }),
+    // new webpack.ProgressPlugin(), // 启动进度条
   ],
   module: {
     rules: [

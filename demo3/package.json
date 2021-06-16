@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
+    "webpac4 > start: 使用的是webpack-dev-server": "webpack-dev-server --config webpack.dev.js",
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.pro.js"
   },
