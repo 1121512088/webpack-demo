@@ -24,6 +24,7 @@ module.exports = {
     new HtmlWebpackPlugin({ // 生成html 到 dist下
       title: "测试"
     }),
+    // ProgressPlugin插件 === 在 package.json 命令增加 --progress(列子："start": "webpack serve --progress --config webpack.dev.js")
     // new webpack.ProgressPlugin(), // 启动进度条
   ],
   module: {
@@ -38,4 +39,11 @@ module.exports = {
       },
     ]
   },
+  resolve: {
+    modules: ['node_modules'], // webpack 解析模块时应该搜索的目录
+    extensions: ['.js', '.jsx', '.json'], // 引入模块时不带扩展后缀 import a from "./a";
+    alias: { // 别名
+      "@": path.resolve(__dirname, 'src'),
+    }
+  }
 };

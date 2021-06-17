@@ -17,11 +17,13 @@ module.exports = merge(config, {
     hot: true,
     port: 8888, // default: 8080
     open: true, // 打开浏览器
-    overlay: { // default: true  // 编译错误或警告浏览器中显示全屏覆盖
+    overlay: { // default: false  // 编译错误或警告浏览器中显示全屏覆盖
       warnings: false,
       errors: true,
     },
-    // can add
+    /* 
+     * can add
+    */
     host: "localhost", // default: "localhost"
     openPage: "admin/home",// 指定打开浏览器时要浏览的页面。
     headers: {}, // 为所有请求添加响应标头
@@ -29,9 +31,13 @@ module.exports = merge(config, {
       const port = server.listeningApp.address().port;
       console.log('Listening on port:', `localhost:${port}`);
     },
+    // useLocalIp: true, // 使host 本机电脑 IP 打开
     proxy: { // 代理接口服务 请求 /api/users 相当于 http://localhost:3000/api/users
       '/api': 'http://localhost:3000',
     },
+    /* 
+     *
+    */
   },
   plugins: [
     new HotModuleReplacementPlugin(),
