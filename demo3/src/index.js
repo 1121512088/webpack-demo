@@ -1,5 +1,6 @@
 import styles from "./index.less";
 import _ from "lodash";
+import axios from 'axios';
 
 let count = 9;
 

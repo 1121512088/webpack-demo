@@ -8,10 +8,11 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // 1. 压缩 bundle、
 // 2. 更轻量的 source map
 // 3. 资源优化等
+// 4. 生产环境下默认使用 TerserPlugin压缩代码
 
 module.exports = merge(config, {
   output: {
-    clean: true // webpack >= 5.20 才有用 清理 /dist 文件夹 
+    clean: true // webpack >= 5.20 才有用 清理 /dist 文件夹  省略掉 clean-webpack-plugin
   },
   devtool: "source-map",
   mode: "production",
@@ -19,9 +20,9 @@ module.exports = merge(config, {
     // new CleanWebpackPlugin({  // webpack5.20废弃:  后 打包前清理 dist
     //   cleanStaleWebpackAssets: false // 在(npm run watch)webpack --watch 模式下 默认会将没有改变的html文件清除
     // }),
-    new UglifyJSPlugin({
+    // new UglifyJSPlugin({
       // sourceMap: true, // 产生 .map文件 sourceMap 可定位错误位置
-    }),
+    // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify("production"),
     }),

@@ -25,7 +25,7 @@ module.exports = merge(config, {
      * can add
     */
     host: "localhost", // default: "localhost"
-    openPage: "admin/home",// 指定打开浏览器时要浏览的页面。
+    // openPage: "/admin",// 指定打开浏览器时要浏览的页面。
     headers: {}, // 为所有请求添加响应标头
     onListening: function (server) { // 监听端口上的连接时，执行自定义功能
       const port = server.listeningApp.address().port;
@@ -33,7 +33,11 @@ module.exports = merge(config, {
     },
     // useLocalIp: true, // 使host 本机电脑 IP 打开
     proxy: { // 代理接口服务 请求 /api/users 相当于 http://localhost:3000/api/users
-      '/api': 'http://localhost:3000',
+      '/api': {
+        target: 'http://34.203.100.217:8082',// 这个是被替换的目标地址 tip: 网页请求 还是显示localhost 请求 其实已经代理
+        changeOrigin: true, // 默认是false, 如果需要代理需要改成true
+        // secure: false, // 如果是https接口，需要配置这个参数
+      },
     },
     /* 
      *
