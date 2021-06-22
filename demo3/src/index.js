@@ -13,6 +13,11 @@ function component() {
   element.onclick = () => {
     element.innerHTML = count;
   }
+
+  var element2 = document.createElement('pre');
+  element2.innerHTML = "element2";
+  element2.className = `${styles.element2}`;
+  element.appendChild(element2);
   return element;
 }
 

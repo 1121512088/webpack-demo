@@ -44,5 +44,8 @@ module.exports = merge(config, {
         }
       }
     }
-  }
+  },
+  // stats: {
+  //   children: false, // 不输出子模块的打包信息
+  // },
 })
