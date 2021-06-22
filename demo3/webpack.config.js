@@ -22,7 +22,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({ // 生成html 到 dist下
-      title: "测试"
+      title: "测试",
+      inject: true, // 是否将js放在body的末尾
     }),
     // ProgressPlugin插件 === 在 package.json 命令增加 --progress(列子："start": "webpack serve --progress --config webpack.dev.js")
     // new webpack.ProgressPlugin(), // 启动进度条
@@ -31,17 +32,45 @@ module.exports = {
     rules: [
       {
         test: /\.(css|less)$/,
+        exclude: /\.module\.less$/,
         use: [
-          "style-loader",
-          "css-loader",
-          "less-loader", // 顺序先 
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              // modules: true,
+              modules: {
+                mode: "local", // 使用 `local` 同使用 `modules: true` 的效果是一样的
+                localIdentName: "appTest-[name]-[local]", // page up element show classname
+                // getLocalIdent: (context, localIdentName, localName, options) => { // 覆盖 localIdentName
+                //   if (
+                //     context.resourcePath.includes('node_modules') ||
+                //     context.resourcePath.includes('global.less')
+                //   ) {
+                //     return localName;
+                //   }
+                //   return `myApp-${localName}`;
+                // },
+              }
+            }
+          },
+          {
+            loader: 'less-loader',
+          },
+          // 简写
+          // "style-loader",
+          // "css-loader",
+          // "less-loader", // 顺序先 
         ]
+
       },
     ]
   },
   resolve: {
     modules: ['node_modules'], // webpack 解析模块时应该搜索的目录
-    extensions: ['.js', '.jsx', '.json'], // 引入模块时不带扩展后缀 import a from "./a";
+    extensions: ['.js', '.jsx', '.json'], // 后缀名自动补全
     alias: { // 别名
       "@": path.resolve(__dirname, 'src'),
     }
