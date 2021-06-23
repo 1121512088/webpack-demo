@@ -34,9 +34,7 @@ module.exports = {
         test: /\.(css|less)$/,
         exclude: /\.module\.less$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -56,13 +54,20 @@ module.exports = {
               }
             }
           },
+          'less-loader',
           {
-            loader: 'less-loader',
+            loader: 'postcss-loader', // 自动获取浏览器前缀 兼容  // .less 给个属性dispatch: flex 能看到兼容
+            options: {
+              postcssOptions: {
+                plugins: {
+                  'postcss-preset-env': {
+                    browsers: ['last 30 versions', "> 2%", "Firefox >= 10", "ie 6-11"] // 兼容浏览器
+                  },
+                },
+              },
+            },
+
           },
-          // 简写
-          // "style-loader",
-          // "css-loader",
-          // "less-loader", // 顺序先 
         ]
 
       },

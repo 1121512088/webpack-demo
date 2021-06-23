@@ -32,7 +32,7 @@ module.exports = merge(config, {
       console.log('Listening on port:', `localhost:${port}`);
     },
     // useLocalIp: true, // 使host 本机电脑 IP 打开
-    proxy: { // 代理接口服务 请求 /api/users 相当于 http://localhost:3000/api/users
+    proxy: { // 代理接口服务 请求 /api/users 相当于 http://34.203.100.217:8082/api/users request: fetch("/api/test")
       '/api': {
         target: 'http://34.203.100.217:8082',// 这个是被替换的目标地址 tip: 网页请求 还是显示localhost 请求 其实已经代理
         changeOrigin: true, // 默认是false, 如果需要代理需要改成true

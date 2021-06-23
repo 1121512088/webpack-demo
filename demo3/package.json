@@ -21,6 +21,8 @@
     "html-webpack-plugin": "^4.5.2",
     "less": "^4.1.1",
     "less-loader": "^8.0.0",
+    "postcss-loader": "^6.1.0",
+    "postcss-preset-env": "^6.7.0",
     "style-loader": "^2.0.0",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.36.2",
