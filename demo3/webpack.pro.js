@@ -1,8 +1,11 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const config = require("./webpack.config");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 // 生产环境目标 
 // 1. 压缩 bundle、
@@ -10,24 +13,72 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 // 3. 资源优化等
 // 4. 生产环境下默认使用 TerserPlugin压缩代码
 
+const staticFilePath = "static/";
+
 module.exports = merge(config, {
   output: {
     clean: true // webpack >= 5.20 才有用 清理 /dist 文件夹  省略掉 clean-webpack-plugin
   },
   devtool: "source-map",
   mode: "production",
+  module: {
+    rules: [
+      {
+        test: /\.(css|less)$/,
+        exclude: /\.module\.less$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader, // loader + plugins  tip: css style 代码从打包的js 里面区分出来 生成css
+            // options: {
+            //   publicPath: '/public', 为 CSS 内的图片、文件等 设置引入 路径
+            // },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                mode: "local",
+                localIdentName: "production-[name]-[local]", // page up element show classname
+              }
+            }
+          },
+          'less-loader',
+          {
+            loader: 'postcss-loader', // 自动获取浏览器前缀 兼容  // .less 给个属性dispatch: flex 能看到兼容
+            options: {
+              postcssOptions: {
+                plugins: {
+                  'postcss-preset-env': {
+                    browsers: ['last 30 versions', "> 2%", "Firefox >= 10", "ie 6-11"] // 兼容浏览器
+                  },
+                },
+              },
+            },
+          },
+        ]
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
+    ]
+  },
   plugins: [
     // new CleanWebpackPlugin({  // webpack5.20废弃:  后 打包前清理 dist
     //   cleanStaleWebpackAssets: false // 在(npm run watch)webpack --watch 模式下 默认会将没有改变的html文件清除
     // }),
-    // new UglifyJSPlugin({
-      // sourceMap: true, // 产生 .map文件 sourceMap 可定位错误位置
-    // }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify("production"),
     }),
+    new MiniCssExtractPlugin({
+      filename: `${staticFilePath}css/[name].css`, // 输出的每个 CSS 文件的名称
+      // chunkFilename: `${staticFilePath}css/[id].css`, // 非入口的 chunk 
+    }),
+    new ImageMinimizerPlugin({
+      test: /\.(png|svg|jpg|jpeg|gif)$/i,
+      filename: `${staticFilePath}img/[name].[ext]`,
+    }),
   ],
-  // TODO: ----------------------------------------------- 简化  根据指南 代码分离 优化
   optimization: {
     moduleIds: 'deterministic', // deterministic 在不同的编译中不变的短数字 id。有益于长期缓存。
     runtimeChunk: 'single', // runtime 代码拆分为一个单独的 chunk 将其设置为 single 来为所有 chunk 创建一个 runtime bundle
@@ -43,7 +94,19 @@ module.exports = merge(config, {
           chunks: 'all',
         }
       }
-    }
+    },
+    // minimize: true, // 如开发环境下启用 CSS 优化可开启
+    minimizer: [
+      new CssMinimizerPlugin({ // 压缩 css
+        parallel: true, // 使用多进程并发运行以提高构建速度
+      }),
+      new TerserPlugin({ // 压缩js
+        parallel: true, // 使用多进程并发运行以提高构建速度
+        test: /\.(js|jsx)(\?.*)?$/i,
+        exclude: /\/node_modules/,
+        extractComments: true, // 启用/禁用剥离注释功能。
+      }),
+    ],
   },
   // stats: {
   //   children: false, // 不输出子模块的打包信息

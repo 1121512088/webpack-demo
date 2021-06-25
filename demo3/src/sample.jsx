@@ -1,6 +1,4 @@
-console.log(
-  '123'
-);
+import styles from "./sample.less";
 
 export default () => {
   console.log('export 123');

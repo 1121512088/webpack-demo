@@ -12,6 +12,49 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 module.exports = merge(config, {
   mode: "development",
   devtool: 'inline-source-map',
+  module: {
+    rules: [
+      {
+        test: /\.(css|less)$/,
+        exclude: /\.module\.less$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              // modules: true,
+              modules: {
+                mode: "local", // 使用 `local` 同使用 `modules: true` 的效果是一样的
+                localIdentName: "dev-[name]-[local]", // page up element show classname
+                // getLocalIdent: (context, localIdentName, localName, options) => { // 覆盖 localIdentName
+                //   if (
+                //     context.resourcePath.includes('node_modules') ||
+                //     context.resourcePath.includes('global.less')
+                //   ) {
+                //     return localName;
+                //   }
+                //   return `myApp-${localName}`;
+                // },
+              }
+            }
+          },
+          'less-loader',
+          {
+            loader: 'postcss-loader', // 自动获取浏览器前缀 兼容  // .less 给个属性dispatch: flex 能看到兼容
+            options: {
+              postcssOptions: {
+                plugins: {
+                  'postcss-preset-env': {
+                    browsers: ['last 30 versions', "> 2%", "Firefox >= 10", "ie 6-11"] // 兼容浏览器
+                  },
+                },
+              },
+            },
+          },
+        ]
+      },
+    ]
+  },
   devServer: { // 配置告知 webpack-dev-server，在 localhost:8080 下建立服务，将 dist 目录下的文件，作为可访问文件
     contentBase: './dist',
     hot: true,
