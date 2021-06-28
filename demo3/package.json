@@ -19,7 +19,6 @@
     "css-loader": "^5.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.2",
-    "image-minimizer-webpack-plugin": "^2.2.0",
     "less": "^4.1.1",
     "less-loader": "^8.0.0",
     "mini-css-extract-plugin": "^1.6.0",

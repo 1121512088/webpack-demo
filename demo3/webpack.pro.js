@@ -5,19 +5,18 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 // 生产环境目标 
 // 1. 压缩 bundle、
 // 2. 更轻量的 source map
 // 3. 资源优化等
-// 4. 生产环境下默认使用 TerserPlugin压缩代码
+// 4. 生产环境下使用 TerserPlugin压缩代码
 
-const staticFilePath = "static/";
+const staticPath = "static/";
 
 module.exports = merge(config, {
   output: {
-    clean: true // webpack >= 5.20 才有用 清理 /dist 文件夹  省略掉 clean-webpack-plugin
+    clean: true, // webpack >= 5.20 才有用 清理 /dist 文件夹  省略掉 clean-webpack-plugin
   },
   devtool: "source-map",
   mode: "production",
@@ -60,6 +59,9 @@ module.exports = merge(config, {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: `${staticPath}images/[hash][ext][query]`
+        }
       },
     ]
   },
@@ -71,12 +73,8 @@ module.exports = merge(config, {
       'process.env.NODE_ENV': JSON.stringify("production"),
     }),
     new MiniCssExtractPlugin({
-      filename: `${staticFilePath}css/[name].css`, // 输出的每个 CSS 文件的名称
-      // chunkFilename: `${staticFilePath}css/[id].css`, // 非入口的 chunk 
-    }),
-    new ImageMinimizerPlugin({
-      test: /\.(png|svg|jpg|jpeg|gif)$/i,
-      filename: `${staticFilePath}img/[name].[ext]`,
+      filename: `${staticPath}css/[name].css`, // 输出的每个 CSS 文件的名称
+      // chunkFilename: `${staticPath}css/[id].css`, // 非入口的 chunk 
     }),
   ],
   optimization: {

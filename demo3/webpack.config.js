@@ -2,16 +2,17 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const staticPath = "static/";
 module.exports = {
   entry: {
     index: {
       import: "./src/index",
-      filename: 'static/js/[name].[contenthash].js',
+      filename: `${staticPath}js/[name].[contenthash].js`,
       dependOn: 'lodash',
     },
     sample: {
       import: "./src/sample.jsx",
-      filename: 'static/js/[name].[contenthash].jsx',
+      filename: `${staticPath}js/[name].[contenthash].jsx`,
       dependOn: 'lodash',
     },
     lodash: 'lodash',
