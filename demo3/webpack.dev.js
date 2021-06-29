@@ -55,6 +55,13 @@ module.exports = merge(config, {
       },
     ]
   },
+  plugins: [
+    new HotModuleReplacementPlugin(),
+    // new BundleAnalyzerPlugin({
+    //   analyzerHost: "127.0.0.1",
+    //   analyzerPort: "8888"
+    // })
+  ],
   devServer: { // 配置告知 webpack-dev-server，在 localhost:8080 下建立服务，将 dist 目录下的文件，作为可访问文件
     contentBase: './dist',
     hot: true,
@@ -86,11 +93,4 @@ module.exports = merge(config, {
      *
     */
   },
-  plugins: [
-    new HotModuleReplacementPlugin(),
-    // new BundleAnalyzerPlugin({
-    //   analyzerHost: "127.0.0.1",
-    //   analyzerPort: "8888"
-    // })
-  ]
 })

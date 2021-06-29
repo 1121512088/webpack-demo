@@ -5,6 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 // 生产环境目标 
 // 1. 压缩 bundle、
@@ -28,9 +29,9 @@ module.exports = merge(config, {
         use: [
           {
             loader: MiniCssExtractPlugin.loader, // loader + plugins  tip: css style 代码从打包的js 里面区分出来 生成css
-            // options: {
-            //   publicPath: '/public', 为 CSS 内的图片、文件等 设置引入 路径
-            // },
+            options: {
+              publicPath: "../../", // 为 CSS 内的图片、文件等 设置引入 路径
+            },
           },
           {
             loader: 'css-loader',
@@ -56,13 +57,6 @@ module.exports = merge(config, {
           },
         ]
       },
-      {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
-        generator: {
-          filename: `${staticPath}images/[hash][ext][query]`
-        }
-      },
     ]
   },
   plugins: [
@@ -76,15 +70,17 @@ module.exports = merge(config, {
       filename: `${staticPath}css/[name].css`, // 输出的每个 CSS 文件的名称
       // chunkFilename: `${staticPath}css/[id].css`, // 非入口的 chunk 
     }),
+    new WebpackManifestPlugin({ // 生成一份资源清单，为后端渲染服务
+      fileName: "assets-manifest.json",
+      publicPath: "./",
+    }),
   ],
   optimization: {
     moduleIds: 'deterministic', // deterministic 在不同的编译中不变的短数字 id。有益于长期缓存。
     runtimeChunk: 'single', // runtime 代码拆分为一个单独的 chunk 将其设置为 single 来为所有 chunk 创建一个 runtime bundle
-    // 将第三方库(library) （例如 lodash 或 react）提取到单独的 vendor chunk 文件中，
-    // 是比较推荐的做法，这是因为，它们很少像本地的源代码那样频繁修改。
+    // 将第三方库(library) （例如 lodash 或 react）提取到单独的 vendor chunk 文件中，是比较推荐的做法，这是因为，它们很少像本地的源代码那样频繁修改。
     splitChunks: { // optimization.splitChunks 取代了 webpack v4 版本以下的 CommonsChunkPlugin
-      // splitChunks.cacheGroups 缓存组可以继承和/或覆盖来自 splitChunks.* 的任何选项。但是 test、priority 和 reuseExistingChunk
-      // 只能在缓存组级别上进行配置。将它们设置为 false以禁用任何默认缓存组。
+      // splitChunks.cacheGroups 缓存组可以继承和/或覆盖来自 splitChunks.* 的任何选项。但是 test、priority 和 reuseExistingChunk 只能在缓存组级别上进行配置。将它们设置为 false以禁用任何默认缓存组。
       cacheGroups: {
         vendor: { // 创建一个 custom vendor chunk
           test: /[\\/]node_modules[\\/]/, // 排除node_modules文件的编译

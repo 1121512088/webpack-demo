@@ -7,12 +7,12 @@ let count = 9;
 function component() {
   var element = document.createElement('pre');
 
-  element.innerHTML = ['sample123', 'webpack', "123456333", "行吧32"].join('\n\n');
+  element.innerHTML = ['sample123', 'webpack', '123456333', '行吧32'].join('\n\n');
   element.className = `${styles.sample} demo`;
   ++count;
   element.onclick = () => {
     element.innerHTML = count;
-  }
+  };
 
   var element2 = document.createElement('pre');
   element2.innerHTML = "element2";
