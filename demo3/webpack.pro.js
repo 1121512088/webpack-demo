@@ -80,10 +80,11 @@ module.exports = merge(config, {
     runtimeChunk: 'single', // runtime 代码拆分为一个单独的 chunk 将其设置为 single 来为所有 chunk 创建一个 runtime bundle
     // 将第三方库(library) （例如 lodash 或 react）提取到单独的 vendor chunk 文件中，是比较推荐的做法，这是因为，它们很少像本地的源代码那样频繁修改。
     splitChunks: { // optimization.splitChunks 取代了 webpack v4 版本以下的 CommonsChunkPlugin
+      chunks: 'all',
       // splitChunks.cacheGroups 缓存组可以继承和/或覆盖来自 splitChunks.* 的任何选项。但是 test、priority 和 reuseExistingChunk 只能在缓存组级别上进行配置。将它们设置为 false以禁用任何默认缓存组。
       cacheGroups: {
         vendor: { // 创建一个 custom vendor chunk
-          test: /[\\/]node_modules[\\/]/, // 排除node_modules文件的编译
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/, // 将来自node_modules的模块提取到一个公共文件中
           name: 'vendors', // build  新建vendors 文件
           chunks: 'all',
         }
