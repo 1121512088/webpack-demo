@@ -3,17 +3,17 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-const staticPath = "static/";
+const staticPath = "static";
 module.exports = {
   entry: {
     index: {
       import: "./src/index",
-      filename: `${staticPath}js/[name].[contenthash].js`,
+      filename: `${staticPath}/js/[name].[contenthash].js`,
       dependOn: 'lodash',
     },
     sample: {
       import: "./src/sample.jsx",
-      filename: `${staticPath}js/[name].[contenthash].jsx`,
+      filename: `${staticPath}/js/[name].[contenthash].jsx`,
       dependOn: 'lodash',
     },
     lodash: 'lodash',
@@ -28,7 +28,7 @@ module.exports = {
         test:  /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
         generator: {
-          filename: `${staticPath}images/[hash][ext][query]`
+          filename: `${staticPath}/images/[hash][ext][query]`
         }
       }
     ]

@@ -65,7 +65,7 @@ module.exports = merge(config, {
   devServer: { // 配置告知 webpack-dev-server，在 localhost:8080 下建立服务，将 dist 目录下的文件，作为可访问文件
     contentBase: './dist',
     hot: true,
-    port: 8888, // default: 8080
+    port: 8887, // default: 8080
     open: true, // 打开浏览器
     overlay: { // default: false  // 编译错误或警告浏览器中显示全屏覆盖
       warnings: false,
