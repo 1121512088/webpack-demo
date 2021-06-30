@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 // 生产环境目标 
 // 1. 压缩 bundle、
@@ -13,7 +14,8 @@ const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 // 3. 资源优化等
 // 4. 生产环境下使用 TerserPlugin压缩代码
 
-const staticPath = "static/";
+const staticPath = "static";
+const version = new Date().getTime();
 
 module.exports = merge(config, {
   output: {
@@ -67,12 +69,19 @@ module.exports = merge(config, {
       'process.env.NODE_ENV': JSON.stringify("production"),
     }),
     new MiniCssExtractPlugin({
-      filename: `${staticPath}css/[name].css`, // 输出的每个 CSS 文件的名称
-      // chunkFilename: `${staticPath}css/[id].css`, // 非入口的 chunk 
+      filename: `${staticPath}/css/[name].${version}.css`, // 输出的每个 CSS 文件的名称
+      // chunkFilename: `${staticPath}/css/[id].css`, // 非入口的 chunk 
     }),
     new WebpackManifestPlugin({ // 生成一份资源清单，为后端渲染服务
       fileName: "assets-manifest.json",
       publicPath: "./",
+    }),
+    // 运行脚本 1. localhost  2. https 协议
+    new WorkboxPlugin.GenerateSW({
+      // 这些选项帮助快速启用 ServiceWorkers
+      // 不允许遗留任何“旧的” ServiceWorkers
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
   optimization: {

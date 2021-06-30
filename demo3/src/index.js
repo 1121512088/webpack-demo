@@ -18,6 +18,17 @@ function component() {
   element2.innerHTML = "element2";
   element2.className = `${styles.element2}`;
   element.appendChild(element2);
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').then(registration => {
+        // console.log('成功: ', registration);
+      }).catch(registrationError => {
+        // console.log('失败: ', registrationError);
+      });
+    });
+  }
+
   return element;
 }
 
