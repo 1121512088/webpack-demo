@@ -47,7 +47,7 @@ module.exports = {
     //强制驼峰法命名
     "camelcase": 2,
     //对象字面量项尾不能有逗号
-    "comma-dangle": [2, "never"],
+    "comma-dangle": [0, "never"],
     //this别名
     "consistent-this": [2, "that"],
   }

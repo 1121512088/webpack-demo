@@ -5,7 +5,7 @@ const { HotModuleReplacementPlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 // 在开发环境中，我们需要：
-// 1. 强大的 source map 
+// 1. 强大的 source map
 // 2. hot module replacement(热模块替换)
 // 3. localhost server
 
@@ -71,7 +71,7 @@ module.exports = merge(config, {
       warnings: false,
       errors: true,
     },
-    /* 
+    /*
      * can add
     */
     host: "localhost", // default: "localhost"
@@ -89,8 +89,8 @@ module.exports = merge(config, {
         // secure: false, // 如果是https接口，需要配置这个参数
       },
     },
-    /* 
+    /*
      *
     */
   },
-})
+});

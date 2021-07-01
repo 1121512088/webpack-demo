@@ -8,7 +8,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
-// 生产环境目标 
+// 生产环境目标
 // 1. 压缩 bundle、
 // 2. 更轻量的 source map
 // 3. 资源优化等
@@ -70,7 +70,7 @@ module.exports = merge(config, {
     }),
     new MiniCssExtractPlugin({
       filename: `${staticPath}/css/[name].${version}.css`, // 输出的每个 CSS 文件的名称
-      // chunkFilename: `${staticPath}/css/[id].css`, // 非入口的 chunk 
+      // chunkFilename: `${staticPath}/css/[id].css`, // 非入口的 chunk
     }),
     new WebpackManifestPlugin({ // 生成一份资源清单，为后端渲染服务
       fileName: "assets-manifest.json",
@@ -115,4 +115,4 @@ module.exports = merge(config, {
   // stats: {
   //   children: false, // 不输出子模块的打包信息
   // },
-})
+});
