@@ -27,7 +27,7 @@ module.exports = {
       {
         test:  /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
-        generator: {
+        generator: { // 输出路径
           filename: `${staticPath}/images/[hash][ext][query]`
         }
       }
@@ -45,8 +45,9 @@ module.exports = {
   resolve: {
     modules: ['node_modules'], // webpack 解析模块时应该搜索的目录
     extensions: ['.js', '.jsx'], // 后缀名自动补全
+    mainFiles: ['index'], // 默认 index文件名
     alias: { // 别名
       "@": path.resolve(__dirname, 'src'),
-    }
+    },
   }
 };
