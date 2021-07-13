@@ -44,5 +44,7 @@ module.exports = merge(config, {
   devServer: {
     open: true,
     hot: true,
+    inline: true,  // 支持路由 react-router-dom
+    historyApiFallback: true  // 支持路由 react-router-dom
   },
 });

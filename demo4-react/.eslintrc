@@ -22,7 +22,8 @@
   },
   "plugins": [
     "react",
-    "babel"
+    "babel",
+    "@babel/plugin-syntax-dynamic-import" // 懒加载 解析动态 import 语法
   ],
   "rules": {
     // 缩进
