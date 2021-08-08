@@ -22,14 +22,27 @@ module.exports = {
             options: {
               presets: [
                 '@babel/preset-env',
-                '@babel/preset-react'
+                '@babel/preset-react',
+              ],
+              plugins: [
+                "@babel/plugin-syntax-dynamic-import", // 懒加载 解析动态 import 语法
+                [ // 支持装饰器 @
+                  "@babel/plugin-proposal-decorators",
+                  { "legacy": true }
+                ],
+                [ // 支持装饰器 @
+                  "@babel/plugin-proposal-class-properties",
+                  { "loose": true }
+                ],
+                // 该babel 不用下载  tip: webpack 编译出现大量提示 需要写入该插件
+                ["@babel/plugin-proposal-private-methods", { "loose": true }]
               ]
             }
           }
         ]
       },
       {
-        test:  /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
         generator: { // 输出路径
           filename: `${staticPath}/images/[hash][ext][query]`

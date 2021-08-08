@@ -1,6 +1,7 @@
 import React, { Component, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
-// react-router-dom 使用router 需要在devServer 添加 inline: true, historyApiFallback: true 否则不支持URl 输入
+
+// tip: react-router-dom 使用router 需要在devServer 添加 inline: true, historyApiFallback: true 否则不支持URl 输入
 
 const RouteGroup = [
   {
@@ -47,7 +48,8 @@ export default class Routers extends Component {
                       key={item.path || index + 1}
                       exact={true}
                       path={item.path}
-                      component={lazy(() => import(`@/pages/${item.component}`))}
+                      // webpack.config @babel/plugin-syntax-dynamic-import 解析动态 import 语法
+                      component={lazy(() => import(`./pages/${item.component}`))}
                     />
                   );
                 })

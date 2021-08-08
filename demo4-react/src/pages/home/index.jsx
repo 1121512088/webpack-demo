@@ -1,11 +1,39 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
+import { GET_LIST } from '@/reducer/home';
+
+@connect(({ home: { list, text } }, nowProps) => {
+  return {
+    list,
+    text
+  };
+})
 
 export default class Home extends Component {
-  render () {
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: GET_LIST,
+      text: "test"
+    });
+  }
+
+  render() {
+    const { text } = this.props;
     return (
       <div>
         home
+        <br></br>
+        {text}
       </div>
-    )
+    );
   }
 }

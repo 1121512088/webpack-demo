@@ -1,4 +1,4 @@
- // npm i -D eslint-plugin-babel eslint-plugin-react eslint
+// npm i -D eslint-plugin-babel eslint-plugin-react eslint
 {
   "env": {
     "browser": true,
@@ -17,19 +17,21 @@
     "sourceType": "module",
     //这是对象，表示你想使用的其他语言特性，所有默认为false
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "legacyDecorators": true // 解除 export default class Home 提示
     }
   },
+  "parser": "babel-eslint", // 解除 es6 ...(解构) 等提示
   "plugins": [
     "react",
-    "babel",
-    "@babel/plugin-syntax-dynamic-import" // 懒加载 解析动态 import 语法
+    "babel"
   ],
   "rules": {
     // 缩进
     "indent": [
       "error",
-      2 //我的是编辑器自动格式化，不是使用tabs，而是2个空格
+      2, //我的是编辑器自动格式化，不是使用tabs，而是2个空格
+      { "SwitchCase": 1 } // switch case缩进问题
     ],
     "linebreak-style": [
       "error",
@@ -45,15 +47,25 @@
       "error",
       "always"
     ],
-    "no-unused-vars": [0, {
-      // 允许声明未使用变量
-      "vars": "local",
-      // 参数不检查
-      "args": "none"
-    }],
+    "no-unused-vars": [
+      0,
+      {
+        // 允许声明未使用变量
+        "vars": "local",
+        // 参数不检查
+        "args": "none"
+      }
+    ],
     // 最大空行100
-    "no-multiple-empty-lines": [0, { "max": 100 }],
-    "no-mixed-spaces-and-tabs": [0],
+    "no-multiple-empty-lines": [
+      0,
+      {
+        "max": 100
+      }
+    ],
+    "no-mixed-spaces-and-tabs": [
+      0
+    ],
     //不能使用console
     "no-console": "off",
     //未定义变量不能使用
@@ -63,9 +75,16 @@
     //强制驼峰法命名
     "camelcase": 2,
     //对象字面量项尾不能有逗号
-    "comma-dangle": [0, "never"],
+    "comma-dangle": [
+      0,
+      "never"
+    ],
     //this别名
-    "consistent-this": [2, "that"]
+    "consistent-this": [
+      2,
+      "that"
+    ],
+    "react/prop-types": 0 //防止在react组件定义中缺少props验证
   }
 }
 // rules 内数字
