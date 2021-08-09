@@ -2,6 +2,7 @@ import { combineReducers } from "redux";
 import home from "./home";
 import role from "./role";
 import user from "./user";
+import work from "./work";
 
 /**
  * 1. combineReducers: 所有reducer合并为一个reducer
@@ -22,4 +23,5 @@ export default combineReducers({
   home,
   role,
   user,
+  work,
 });

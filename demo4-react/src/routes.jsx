@@ -16,6 +16,10 @@ const RouteGroup = [
     path: '/user',
     component: 'user',
   },
+  {
+    path: '/work',
+    component: 'work',
+  },
 ];
 
 export default class Routers extends Component {
