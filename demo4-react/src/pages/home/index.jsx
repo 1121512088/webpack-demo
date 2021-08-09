@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 
 import { GET_LIST } from '@/reducer/home';
 
+/**
+ * 1. @connect(state接收的redux state, nowProps 当前组件的props)
+ */
 @connect(({ home: { list, text } }, nowProps) => {
   return {
     list,

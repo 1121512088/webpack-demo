@@ -10,7 +10,7 @@ import { GET_LIST } from '@/reducer/user';
     };
   },
   null,
-  (stateProps, dispatchProps, ownProps) => {
+  (stateProps, dispatchProps, ownProps) => { // [redux state], [dispatch], [当前的props]
     return { ...stateProps, ...dispatchProps, ...ownProps };
   }
 )
