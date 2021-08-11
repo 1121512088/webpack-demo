@@ -25,6 +25,7 @@ module.exports = {
                 '@babel/preset-react',
               ],
               plugins: [
+                "@babel/plugin-transform-runtime", // 解决 async await
                 "@babel/plugin-syntax-dynamic-import", // 懒加载 解析动态 import 语法
                 [ // 支持装饰器 @
                   "@babel/plugin-proposal-decorators",
