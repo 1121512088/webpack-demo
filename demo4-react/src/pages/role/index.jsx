@@ -24,7 +24,7 @@ const mapDispatchToProps2 = (dispatch) => {
         return {
           type: GET_LIST,
           text: data
-        }
+        };
       },
     },
     dispatch,

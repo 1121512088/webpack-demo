@@ -1,9 +1,6 @@
 import { ArrResetObj } from "@/utils/way";
 
-const { GET_LIST } = ArrResetObj(['GET_LIST'], "work");
-export {
-  GET_LIST
-};
+export const { GET_LIST } = ArrResetObj(['GET_LIST'], "work");
 
 const initialState = {
   list: [],
