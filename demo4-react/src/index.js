@@ -7,8 +7,19 @@ import RoutesUi from "@/routes";
 
 
 
-if (process.env.NODE_ENV !== "prodution") {
+if (process.env.NODE_ENV !== "production") {
   require("@/mock"); // 接口拦截需要引入 mock
+}
+if (process.env.NODE_ENV === "production") {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./service-worker.js').then(registration => {
+        // console.log('成功: ', registration);
+      }).catch(registrationError => {
+        // console.log('失败: ', registrationError);
+      });
+    });
+  }
 }
 
 ReactDom.render(

@@ -11,7 +11,7 @@ import reducer from "../reducer";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 let middleware = composeEnhancers(applyMiddleware());
 
-if (process.env.NODE_ENV === "prodution") {
+if (process.env.NODE_ENV === "production") {
   middleware = applyMiddleware();
 }
 
