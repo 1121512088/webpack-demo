@@ -10,7 +10,7 @@ import reducer from "../reducer";
  * 3. appltMiddleware 中间件函数
  * 4. github redux-devtools-extension 增加 redux devtools开发工具
  * 5. redux-logger 输出redux流
- * 6. redux-thunk (异步流处理) action只能返回对象，thunk 插件使得action可以返回函数
+ * 6. redux-thunk (异步流处理) action只能返回对象，使用 thunk 插件使得action可以返回函数
  *    1.操作发起时的 Action 2.操作成功时的 Action 3.操作失败时的 Action
  *      写法一：名称相同，参数不同
         { type: 'FETCH_POSTS' }
