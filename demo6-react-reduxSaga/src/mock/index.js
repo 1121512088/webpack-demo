@@ -6,6 +6,7 @@ import role from "./role";
 
 let obj = {};
 [
+  // add mock
   home, role
 ].forEach(v => {
   obj = { ...obj, ...v };

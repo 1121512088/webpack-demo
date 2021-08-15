@@ -1,17 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GET_LIST } from '@/reducer/home';
-import Api from "@/toolkit/request";
+import { mapDispatchToProps } from '@/reducer/home';
 
 /**
  * 1. @connect(state接收的redux state, nowProps 当前组件的props)
  */
-@connect(({ home: { list, text } }, nowProps) => {
+@connect(({ home: { list, loading } }, nowProps) => {
   return {
     list,
-    text
+    loading,
   };
-})
+}, { ...mapDispatchToProps })
 
 export default class Home extends Component {
   constructor(props) {
@@ -21,24 +20,22 @@ export default class Home extends Component {
     };
   }
 
-  async componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: GET_LIST,
-      text: "test"
-    });
-
-    const res = await Api.get("/home_list");
-    console.log(res, "home");
+  componentDidMount() {
+    this.props.findAll();
   }
 
   render() {
-    const { text } = this.props;
+    const { list, loading } = this.props;
     return (
       <div>
         home
         <br></br>
-        {text}
+        {String(loading)}
+        {
+          list.map(v => {
+            return <div key={v.address}>{v.address}</div>;
+          })
+        }
       </div>
     );
   }

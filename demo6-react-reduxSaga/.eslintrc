@@ -7,10 +7,10 @@
   },
   "extends": [
     "eslint:recommended",
-    //"standard"
     "plugin:react/recommended"
+    //"standard"
     //"./node_modules/coding-standard/.eslintrc-es6",
-    //"eslint:all"
+    // "eslint:all"
   ],
   "parserOptions": {
     "ecmaVersion": 2015,

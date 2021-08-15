@@ -1,19 +1,37 @@
 import { ArrResetObj } from "@/utils/way";
 
-export const { GET_LIST } = ArrResetObj(['GET_LIST'], "role");
+export const types = ArrResetObj([
+  'GET_LIST_REQUEST',
+  'GET_LIST_SUCCESS',
+  'GET_LIST_FAILED',
+], "ROLE");
 
 const initialState = {
+  loading: false,
   list: [],
 };
 
 export default (state = initialState, action) => {
-  switch (action.type) {
-    case GET_LIST:
-      return {
-        ...state,
-        ...action
-      };
-    default:
-      return state;
+  const nState = {
+    [types.GET_LIST_REQUEST]: {
+      loading: true,
+    },
+    [types.GET_LIST_SUCCESS]: {
+      loading: false,
+      list: action?.payload || [],
+    },
+    [types.GET_LIST_FAILED]: {
+      loading: false,
+    },
+  }[action.type];
+  return { ...state, ...nState };
+};
+
+export const mapDispatchToProps = {
+  findAll: (params = {}) => {
+    return {
+      type: types.GET_LIST_REQUEST,
+      payload: params,
+    };
   }
 };
