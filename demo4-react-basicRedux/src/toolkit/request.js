@@ -21,7 +21,6 @@ service.interceptors.request.use(config => {
       ...config?.data || {},
     }),
   };
-  console.log(nConfig);
   return nConfig;
 }, error => {
   return error;
@@ -31,11 +30,11 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
   switch (response.status) {
     case 200:
-      return response;
+      return { ...response, success: true };
     default: return response;
   }
 }, error => {
-  return { status: 404, data: {} };
+  return { status: 404, success: false, data: {} };
 });
 
 export default service;

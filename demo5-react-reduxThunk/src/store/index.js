@@ -22,15 +22,16 @@ import reducer from "../reducer";
         { type: 'FETCH_POSTS_SUCCESS', response: { ... } }
  */
 
+const isPro = process.env.NODE_ENV === "production";
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-let middleware = composeEnhancers(applyMiddleware(
+let middleware = applyMiddleware(
   thunk,
   thunkExtend, // redux-thunk 扩展 执行3次 action
   // createLogger(), // logger就一定要放在最后，否则输出结果会不正确
-));
+);
 
-if (process.env.NODE_ENV === "production") {
-  middleware = applyMiddleware();
+if (!isPro) {
+  middleware = composeEnhancers(middleware);
 }
 
 export default createStore(reducer, middleware);
