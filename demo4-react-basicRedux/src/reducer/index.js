@@ -15,6 +15,7 @@ import work from "./work";
  *  [options] 若发生组件不更新的问题，可以考虑关闭默认的浅比较，connect(null, null, null, {pure: false});
  *   options 2个参数
  *    1. pure = (default true) true: connector 将执行shouldComponentUpdate 并且浅对比 mergeProps 的结果
+ *       pure为true会浅比较避免刷新， pure为false，不会浅比较，将直接更新。
  *    2. withRef = (default false) true: connector 会保存一个对被被包含的组件实例的引用，该引用通过 getWrappedInstance() 方法获得。默认值为 false
  * )
  */
